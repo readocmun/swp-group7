@@ -22,6 +22,7 @@ import utils.Const;
  *
  * @author My Computer
  */
+//To retrieve all doctor schedules from the database and forward them as JSON to the admin JSP page for display.
 @WebServlet(name = "AdminViewDoctorScheduleController", urlPatterns = {Const.ADMIN_VIEW_DOCTOR_SCHEDULE_URL})
 public class AdminViewDoctorScheduleController extends HttpServlet {
 
