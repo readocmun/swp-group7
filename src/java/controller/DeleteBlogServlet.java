@@ -14,17 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.annotation.WebServlet;
 
 
 /**
  *
  * @author Lenovo
  */
+@WebServlet(name = "DeleteBlogServlet", urlPatterns = {"/delete-blog"})
 public class DeleteBlogServlet extends HttpServlet {
-
-    
-   
-
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -40,7 +38,7 @@ public class DeleteBlogServlet extends HttpServlet {
         dao.deleteBlog(id);
         
         }
-        res.sendRedirect("ShowBlogServlet");
+        res.sendRedirect("showBlog");
     }
 
     

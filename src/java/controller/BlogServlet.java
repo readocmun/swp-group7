@@ -50,7 +50,7 @@ public class BlogServlet extends HttpServlet {
         
         BlogDAO dao = new BlogDAO();
         dao.createBlog(user.getUserId(), title, content, date, user.getName());
-        res.sendRedirect("ShowBlogServlet");
+        res.sendRedirect("showBlog");
 
     }
 

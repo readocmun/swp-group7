@@ -61,7 +61,7 @@ public class UpdateBlogServlet extends HttpServlet {
         
         
     }
-        res.sendRedirect("ShowBlogServlet");
+        res.sendRedirect("showBlog");
     }
 
     
