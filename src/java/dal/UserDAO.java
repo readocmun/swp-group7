@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utils.Const;
 
 /**
  *
@@ -98,9 +99,10 @@ public class UserDAO extends DBContext {
                 + "           ,[phone]\n"
                 + "           ,[email]\n"
                 + "           ,[password]\n"
+                + "           ,[role]\n"
                 + "           ,[token])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?)";
+                + "           (?,?,?,?,?,?)";
         try {
             connection = getConnection();
             statement = connection.prepareStatement(sql);
@@ -109,7 +111,8 @@ public class UserDAO extends DBContext {
             statement.setString(2, userRegister.getPhone());
             statement.setString(3, userRegister.getEmail());
             statement.setString(4, userRegister.getPassword());
-            statement.setString(5, userRegister.getToken());
+            statement.setString(5, UserRoleEnum.UserRole.Customer.toString());
+            statement.setString(6, userRegister.getToken());
             statement.executeUpdate();
 
         } catch (SQLException ex) {
