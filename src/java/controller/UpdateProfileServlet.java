@@ -8,9 +8,14 @@ import bo.UserLogic;
 import entity.User;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +27,7 @@ import javax.servlet.http.Part;
  * @author Lenovo
  */
 @MultipartConfig
+@WebServlet(name = "UpdateProfileServlet", urlPatterns = {"/UpdateProfileServlet"})
 public class UpdateProfileServlet extends HttpServlet {
 
     /**
@@ -79,35 +85,36 @@ public class UpdateProfileServlet extends HttpServlet {
         User user = new User();
         UserLogic userLogic = new UserLogic();
         HttpSession session = request.getSession();
-       
-      
+
         Part part = request.getPart("avatar");
+        String imagesFolderPath = request.getServletContext().getRealPath("/") + "images";
         try {
-        File dir  = new File(request.getServletContext().getRealPath("/images")); 
+            File dir = new File(imagesFolderPath);
             if (!dir.exists()) {
-                 //Tao ra duong dan
+                //Tao ra duong dan
                 dir.mkdirs();
             }
-              String name = request.getParameter("nameUpdate");
-        String email = request.getParameter("emailUpdate");
-        String phone = request.getParameter("phoneUpdate");
-        String address = request.getParameter("addressUpdate");
-            File avatar = new File(dir,part.getSubmittedFileName());
-            part.write(avatar.getAbsolutePath());
-           user.setAvatar("images/"+ avatar.getName() );
-           user.setName(name);
-      user.setEmail(email);
-      user.setPhone(phone);
-      user.setAddress(address);
-      user = userLogic.updateProfile(user);
-      session.setAttribute("user", user);
-               
+            String name = request.getParameter("nameUpdate");
+            String email = request.getParameter("emailUpdate");
+            String phone = request.getParameter("phoneUpdate");
+            String address = request.getParameter("addressUpdate");
+            File avatar = new File(dir, part.getSubmittedFileName());
+            // Tự copy input stream ra file
+            try (InputStream input = part.getInputStream()) {
+                Files.copy(input, avatar.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+            user.setAvatar("images/" + avatar.getName());
+            user.setName(name);
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setAddress(address);
+            user = userLogic.updateProfile(user);
+            session.setAttribute("user", user);
+
             request.getRequestDispatcher("Main Template/profile.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
-               
        
     }
 

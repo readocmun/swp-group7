@@ -262,7 +262,7 @@
                         <div class="card">
                             <div class="card-body" >
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="/SWP391_/${user.avatar}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+                                    <img src="${pageContext.request.contextPath}/${user.avatar}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
                                     <div class="mt-3">
                                         <!--256 Name-->
                                         <h4>${user.name}</h4>
@@ -282,7 +282,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form method="post" action="/SWP391_/UpdateProfileServlet" enctype="multipart/form-data">
+                                                        <form method="post" action="${pageContext.request.contextPath}/UpdateProfileServlet" enctype="multipart/form-data">
                                                             <div class="form-group">
                                                                 <div class="input-group mb-3">
                                                                     <label class="input-group-text" for="avatar">Avatar</label>
