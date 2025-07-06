@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Form;
@@ -65,9 +66,23 @@ public class LoginGoogleHandler extends HttpServlet {
         String code = request.getParameter("code");
         String accessToken = getToken(code);
         UserGoogleDto user = getUserInfo(accessToken);
-        System.out.println(user);
-        System.out.println(user.getEmail());
-        request.getRequestDispatcher("Main Template/index.jsp").forward(request, response);
+        String email = user.getEmail();
+        UserDAO userDAO = new UserDAO();
+        HttpSession session =request.getSession();
+        //Logic
+        User userEntity = new User();
+        userEntity.setEmail(email);
+        userEntity = userDAO.findbyEmail(userEntity);
+        
+        if (userEntity != null) {
+           session.setAttribute("user", userEntity);
+           response.sendRedirect(request.getContextPath() + "/HomeServlet");
+        }
+
+         else {
+            request.setAttribute("eror", "Gmail does not exsist in the system!");
+            request.getRequestDispatcher("Main Template/login.jsp").forward(request, response);
+        }
     }
 
     public static String getToken(String code) throws ClientProtocolException, IOException {
