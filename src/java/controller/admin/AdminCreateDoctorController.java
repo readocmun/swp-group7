@@ -20,10 +20,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author My Computer
- */
+
+
 @WebServlet(name = "AdminCreateDoctor", urlPatterns = {"/createDoctor"})
 public class AdminCreateDoctorController extends HttpServlet {
     private final UserDAO userDAO;

@@ -19,10 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utils.Const;
 
-/**
- *
- * @author My Computer
- */
+
+
+
 @WebServlet(name = "AdminDashboard", urlPatterns = {Const.ADMIN_DASHBOARD})
 public class AdminDashboard extends HttpServlet {
     private final BookingDAO bookingDAO;
