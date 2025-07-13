@@ -18,10 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utils.Const;
 
-/**
- *
- * @author My Computer
- */
+
+
+
+
 @WebServlet(name = "AdminViewFeedbackController", urlPatterns = {Const.ADMIN_VIEW_LIST_FEEDBACK_URL})
 public class AdminViewFeedbackController extends HttpServlet {
     private FeedbackDAO feedbackDAO;

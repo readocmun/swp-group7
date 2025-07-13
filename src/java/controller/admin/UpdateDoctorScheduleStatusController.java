@@ -21,10 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import utils.Const;
 
-/**
- *
- * @author My Computer
- */
+
+
+
+
+
+
 @WebServlet(name = "UpdateDoctorScheduleStatusController", urlPatterns = {"/updateDoctorScheduleStatus"})
 public class UpdateDoctorScheduleStatusController extends HttpServlet {
     private final DoctorScheduleDAO doctorScheduleDAO;
